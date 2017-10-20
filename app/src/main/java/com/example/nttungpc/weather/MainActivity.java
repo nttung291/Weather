@@ -1,80 +1,85 @@
 package com.example.nttungpc.weather;
 
+import android.content.Context;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nttungpc.weather.model.CityWeather;
+import com.example.nttungpc.weather.adapter.ViewPagerAdapter;
+import com.example.nttungpc.weather.adapter.WeatherAdapter;
+import com.example.nttungpc.weather.cityweatherJSON.CityWeather;
+import com.example.nttungpc.weather.cityweatherJSON.ListWeather;
+import com.example.nttungpc.weather.fragments.Day1Fragment;
+import com.example.nttungpc.weather.retrofit.RetrofitFactory;
+import com.example.nttungpc.weather.retrofit.WeatherService;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
-    private EditText etName;
-    private Button btShow;
-    private TextView tvCountry;
-    private TextView tvMain;
-    private TextView tvDescription;
-    private TextView tvTemp;
-    private TextView tvPressure;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private Button show;
     public static String cityName;
-    public static final String APPID = "9c3ab78c411781247eb0b124611b79a8";
-    private String TAG = "AAA";
+    private EditText etCityname;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        etName = (EditText) findViewById(R.id.et_cityname);
-        btShow = (Button) findViewById(R.id.bt_show);
-        tvCountry = (TextView) findViewById(R.id.tv_country);
-        tvMain = (TextView) findViewById(R.id.tv_main);
-        tvDescription = (TextView) findViewById(R.id.tv_description);
-        tvTemp = (TextView) findViewById(R.id.tv_temp);
-        tvPressure = (TextView) findViewById(R.id.tv_pressure);
-
-        btShow.setOnClickListener(new View.OnClickListener() {
+        show = (Button) findViewById(R.id.bt_show);
+        etCityname = (EditText) findViewById(R.id.et_cityname);
+        show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cityName = etName.getText().toString();
-               if (cityName != null){
-                   WeatherService weatherService = RetrofitFactory.getInstance().create(WeatherService.class);
-                   weatherService.getCityWeather(cityName,APPID).enqueue(new Callback<CityWeather>() {
-                       @Override
-                       public void onResponse(Call<CityWeather> call, Response<CityWeather> response) {
-                          if (response.body() != null){
-                              tvCountry.setText(response.body().getSys().getCountry());
-                              tvMain.setText(response.body().getWeather().get(0).getMain());
-                              tvDescription.setText(response.body().getWeather().get(0).getDescription());
-                              tvTemp.setText(response.body().getMain().getTemp().toString());
-                              tvPressure.setText(response.body().getMain().getPressure().toString());
+                cityName = etCityname.getText().toString();
+                setUI();
+            }
+        });
+    }
+    private void setUI() {
+        tabLayout = (TabLayout) findViewById(R.id.tl_city);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-                          }else{
-                              Toast.makeText(MainActivity.this, "There is no country", Toast.LENGTH_SHORT).show();
-                          }
-                       }
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search_black_24dp));
+        tabLayout.getTabAt(0).getIcon().setAlpha(0);
+        tabLayout.getTabAt(1).getIcon().setAlpha(0);
+        tabLayout.getTabAt(2).getIcon().setAlpha(0);
 
-                       @Override
-                       public void onFailure(Call<CityWeather> call, Throwable t) {
-                           Toast.makeText(MainActivity.this, "No Connection", Toast.LENGTH_SHORT).show();
-                           Log.d(TAG, "onFailure: " + t.toString());
-                       }
-                   });
-               }else{
-                   Toast.makeText(MainActivity.this, "Select city", Toast.LENGTH_SHORT).show();
-               }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // An 2 lan lien tuc vao tab
             }
         });
 
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
+
+
+
 }

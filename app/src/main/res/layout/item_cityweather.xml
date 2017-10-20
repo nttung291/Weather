@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:padding="8dp"
+    android:elevation="100dp"
+    android:background="#fff">
+    <TextView
+        android:id="@+id/tv_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:text="20 °C "
+        android:layout_alignParentEnd="true"/>
+    <RelativeLayout
+        android:id="@+id/rl_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/tv_temp">
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thursday,July 4 2017"
+            android:textSize="20sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_date"
+            android:text="4:00"
+            android:layout_marginLeft="50dp"
+            android:textSize="25sp"/>
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Few clouds"/>
+        <TextView
+            android:id="@+id/tv_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Humidity : 90%"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_main"/>
+        <TextView
+            android:id="@+id/tv_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Pressure : 1017.3"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_humidity"/>
+    </RelativeLayout>
+</RelativeLayout>

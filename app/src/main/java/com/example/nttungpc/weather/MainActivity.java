@@ -40,25 +40,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         show = (Button) findViewById(R.id.bt_show);
         etCityname = (EditText) findViewById(R.id.et_cityname);
+        setUI();
         show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cityName = etCityname.getText().toString();
-                setUI();
-            }
-        });
+                @Override
+                public void onClick(View view) {
+                    cityName = etCityname.getText().toString();
+                    loadData();
+                }
+            });
+
+
     }
     private void setUI() {
         tabLayout = (TabLayout) findViewById(R.id.tl_city);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search_black_24dp));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search_black_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search_black_24dp));
         tabLayout.getTabAt(0).getIcon().setAlpha(0);
-        tabLayout.getTabAt(1).getIcon().setAlpha(0);
-        tabLayout.getTabAt(2).getIcon().setAlpha(0);
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -74,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 // An 2 lan lien tuc vao tab
             }
         });
-
+    }
+    private void loadData(){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

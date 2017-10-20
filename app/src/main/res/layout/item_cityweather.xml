@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:padding="8dp"
-    android:elevation="100dp"
-    android:background="#fff">
+    android:background="@drawable/background">
     <TextView
         android:id="@+id/tv_temp"
         android:layout_width="wrap_content"
@@ -22,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thursday,July 4 2017"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
         <TextView
@@ -33,20 +32,21 @@
             android:layout_below="@id/tv_date"
             android:text="4:00"
             android:layout_marginLeft="50dp"
-            android:textSize="25sp"/>
+            android:textSize="24sp"/>
         <TextView
             android:id="@+id/tv_main"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/tv_hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="16sp"
+
             android:text="Few clouds"/>
         <TextView
             android:id="@+id/tv_humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="Humidity : 90%"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/tv_main"/>
@@ -54,7 +54,7 @@
             android:id="@+id/tv_pressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="Pressure : 1017.3"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/tv_humidity"/>

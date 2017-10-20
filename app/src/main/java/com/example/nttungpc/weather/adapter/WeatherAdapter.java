@@ -33,13 +33,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     public WeatherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemview = layoutInflater.inflate(R.layout.item_cityweather,parent,false);
+        Log.d("AAAA", "setData: " + listWeathers.size());
         return new WeatherViewHolder(itemview);
     }
 
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
         holder.setData(listWeathers.get(position));
-        Log.d("AAAA", "setData: " + listWeathers.size());
     }
 
     @Override
@@ -77,13 +77,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            SimpleDateFormat dateinput =  new SimpleDateFormat("E,dd MMM yyyy HH:mm:ss z");
+            SimpleDateFormat dateinput =  new SimpleDateFormat("E,dd MMM yyyy");
             dateout = dateinput.format(date);
             SimpleDateFormat hoursinput =  new SimpleDateFormat("HH:mm");
             hoursout = hoursinput.format(date);
-            tvTemp.setText(Double.toString(listWeather.getMain().getTemp()));
-            tvMain.setText(listWeather.getWeather().get(0).getDescription());
-            tvHumidity.setText(Integer.toString(listWeather.getMain().getHumidity()));
+            tvTemp.setText(Double.toString(listWeather.getMain().getTemp()) + "°C");
+            tvMain.setText(listWeather.getWeather().get(0).getDescription().toUpperCase());
+            tvHumidity.setText(Integer.toString(listWeather.getMain().getHumidity()) + "%");
             tvPressure.setText(Double.toString(listWeather.getMain().getPressure()));
             tvDate.setText(dateout);
             tvHour.setText(hoursout);

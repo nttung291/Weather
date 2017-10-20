@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +23,10 @@ import com.example.nttungpc.weather.cityweatherJSON.Weather;
 import com.example.nttungpc.weather.retrofit.RetrofitFactory;
 import com.example.nttungpc.weather.retrofit.WeatherService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,8 +44,7 @@ public class Day1Fragment extends Fragment{
     private RecyclerView rvDay1;
     private static CityWeather cityWeather = new CityWeather();
     private WeatherAdapter weatherAdapter;
-
-
+    private List<ListWeather> listWeathers = new ArrayList<>();
 
     public Day1Fragment() {
         // Required empty public constructor
@@ -74,10 +77,10 @@ public class Day1Fragment extends Fragment{
                 public void onResponse(Call<CityWeather> call, Response<CityWeather> response) {
                     if (cityWeather!=null){
                         cityWeather = response.body();
-//                        weatherAdapter.notifyDataSetChanged();
                         rvDay1 = view.findViewById(R.id.rv_weather);
                         weatherAdapter = new WeatherAdapter(cityWeather.getList(),getContext());
                         rvDay1.setAdapter(weatherAdapter);
+                        rvDay1.setLayoutManager(new LinearLayoutManager(getContext()));
                     }
                 }
                 @Override
